@@ -41,6 +41,33 @@ tinylog-agent/
 └── .gitignore
 ```
 
+## Pipeline (high-level)
+
+TinyLog is a simple 5-step incident triage pipeline:
+
+```text
+[tailer] --> [detector] --> [investigator] --> [reasoner] --> [reviewer] --> [reporter]
+    |             |             |              |              |             |
+    |             |             |              |              |             |
+    v             v             v              v              v             v
+- reads files  - finds         - gathers      - builds        - LLM review  - prints report
+              repeating       matching logs    hypothesis    + final        in
+              patterns         around pattern    + follow-up                  JSON/console
+              in time         by pattern
+              window
+```
+
+### Module roles
+
+- `tinylog.tailer` : stream lines from one or more files (like `tail -f`).
+- `tinylog.detector` : detect error-like patterns and apply window + cooldown filtering.
+- `tinylog.investigator` : collect matching evidence and run follow-up search queries.
+- `tinylog.reasoner` : create the initial hypothesis and candidate follow-up queries.
+- `tinylog.reviewer` : call SLLM (or deterministic fallback) to get `verdict` and `decision`.
+- `tinylog.reporter` : render output (console or JSON).
+
+When LLM is not available, fallback outputs still stay structured for automation.
+
 ## Quick Start
 
 ### One-shot mode
