@@ -1,14 +1,16 @@
 # TinyLog Agent
 
-Lightweight log monitoring agent with optional SLLM-assisted review.
+Lightweight Python-based log triage daemon for VM/server environments.
 
-## Features
+> **Project size:** ~`< 1000` Python LOC (currently about `985` lines) so it stays simple, auditable, and easy to run.
 
-- Tails multiple files in real-time
-- Normalizes lines and groups similar error patterns
-- Sliding-window threshold + cooldown to reduce noise
-- Deterministic baseline + optional review rounds
-- Optional SLLM backends for richer judgment:
+## Highlights
+
+- Multi-file real-time log tailing (`/var/log/syslog`, `auth.log`, `kern.log`, `dmesg`, etc.)
+- Pattern normalization to reduce noise and group similar events
+- Sliding-window threshold + cooldown controls
+- Deterministic fallback pipeline for reliability when SLLM is unavailable
+- Optional SLLM-assisted review for richer incident judgment
   - `ollama`
   - `llamacpp`
 
@@ -39,7 +41,7 @@ tinylog-agent/
 └── .gitignore
 ```
 
-## Run
+## Quick Start
 
 ### One-shot mode
 
@@ -65,13 +67,13 @@ tinylog-agent --files /var/log/syslog --backend none
 - start: `./start_vm_monitor.sh`
 - stop: `kill "$(cat vm_tinylog.pid)"`
 
-The script monitors:
+Monitored files by default:
 - `/var/log/syslog`
 - `/var/log/auth.log`
 - `/var/log/kern.log`
 - `/var/log/dmesg`
 
-Output is written to `./vm_tinylog.log` by default.
+Output: `./vm_tinylog.log`
 
 ## Environment Variables
 
@@ -84,13 +86,14 @@ Output is written to `./vm_tinylog.log` by default.
 - `TINYLOG_BACKEND` (`none`, `ollama`, `llamacpp`)
 - `TINYLOG_BACKEND_HOST`
 - `TINYLOG_BACKEND_MODEL`
-- `TINYLOG_BACKEND_TIMEOUT`
+- `TINYLOG_BACKEND_TIMEOUT` *(default: 600)*
 - `TINYLOG_BACKEND_BINARY`
 - `TINYLOG_BACKEND_MODEL_PATH`
 - `TINYLOG_OUTPUT_JSON`
 - `TINYLOG_RUN_ONCE`
 
-## Note on defaults
+## Design notes
 
-- CLI `--backend-timeout` and env `TINYLOG_BACKEND_TIMEOUT` both default to `600`.
-- If no SLLM backend is configured, TinyLog keeps a deterministic fallback path.
+- This repo intentionally stays minimal to keep behavior transparent and maintenance low.
+- If SLLM is not configured, output remains usable through deterministic fallback paths.
+- JSON output supports lightweight downstream automation and parsing.
