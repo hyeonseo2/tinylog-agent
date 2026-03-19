@@ -1,0 +1,2 @@
+# TinyLog Agent has only Python standard library dependencies.
+# Optional (for LLM mode): install and run ollama/llama.cpp separately.

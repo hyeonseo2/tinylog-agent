@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tinylog-agent"
+version = "0.1.0"
+description = "Lightweight log incident detection and SLLM-assisted review pipeline"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{name = "tinylog-agent contributors"}]
+license = {text = "MIT"}
+dependencies = []
+
+[project.scripts]
+tinylog-agent = "main:main"
