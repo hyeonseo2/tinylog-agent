@@ -91,7 +91,7 @@ tinylog-agent --files /var/log/syslog --backend none
 
 ## Log Monitoring Helper
 
-- start: `./start_vm_monitor.sh`
+- start: `./start_tinylog_monitor.sh` (legacy: `./start_vm_monitor.sh`)
 - stop: `kill "$(cat tinylog_monitor.pid)"`
 
 Monitored files by default:
