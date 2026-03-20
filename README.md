@@ -92,7 +92,7 @@ tinylog-agent --files /var/log/syslog --backend none
 ## Log Monitoring Helper
 
 - start: `./start_vm_monitor.sh`
-- stop: `kill "$(cat vm_tinylog.pid)"`
+- stop: `kill "$(cat tinylog_monitor.pid)"`
 
 Monitored files by default:
 - `/var/log/syslog`
@@ -100,7 +100,7 @@ Monitored files by default:
 - `/var/log/kern.log`
 - `/var/log/dmesg`
 
-Output: `./vm_tinylog.log`
+Output: `./tinylog_monitor.log`
 
 ## Environment Variables
 

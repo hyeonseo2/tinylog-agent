@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# TinyLog VM 실시간 모니터링 런처
+# TinyLog 실시간 모니터링 런처
 # 사용법:
 #   TINYLOG_BACKEND=ollama ./start_vm_monitor.sh
 # 기본은 backend=none(순수 rule 기반)입니다.
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LOG_FILE="${SCRIPT_DIR}/vm_tinylog.log"
-PID_FILE="${SCRIPT_DIR}/vm_tinylog.pid"
+LOG_FILE="${SCRIPT_DIR}/tinylog_monitor.log"
+PID_FILE="${SCRIPT_DIR}/tinylog_monitor.pid"
 
 MONITOR_FILES=(
   /var/log/syslog
