@@ -1,6 +1,6 @@
 # TinyLog Agent
 
-Lightweight Python-based log triage daemon for VM/server environments.
+Lightweight Python-based log triage daemon for multi-source server logs.
 
 > **Project size:** ~`< 1000` Python LOC (currently about `985` lines) so it stays simple, auditable, and easy to run.
 
@@ -89,7 +89,7 @@ pip install -e .
 tinylog-agent --files /var/log/syslog --backend none
 ```
 
-## VM Monitoring Helper
+## Log Monitoring Helper
 
 - start: `./start_vm_monitor.sh`
 - stop: `kill "$(cat vm_tinylog.pid)"`
